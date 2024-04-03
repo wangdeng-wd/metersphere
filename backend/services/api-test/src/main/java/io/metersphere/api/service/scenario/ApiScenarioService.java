@@ -547,7 +547,7 @@ public class ApiScenarioService extends MoveNodeService {
                 refFilesMap = fileList.stream().collect(Collectors.toMap(FileMetadata::getId, f -> f.getName() + "." + f.getType()));
             }
             fileAssociationService.association(resourceUpdateRequest.getResourceId(), FileAssociationSourceUtil.SOURCE_TYPE_API_SCENARIO, linkFileIds,
-                    apiFileResourceService.createFileLogRecord(resourceUpdateRequest.getOperator(), resourceUpdateRequest.getProjectId(), OperationLogModule.API_SCENARIO_MANAGEMENT_SCENARIO));
+                    apiFileResourceService.createFileLogRecord(resourceUpdateRequest.getOperator(), resourceUpdateRequest.getProjectId(), OperationLogModule.API_TEST_SCENARIO_MANAGEMENT_SCENARIO));
         }
         Map<String, String> finalRefFilesMap = refFilesMap;
         // 添加文件与接口的关联关系
@@ -757,7 +757,7 @@ public class ApiScenarioService extends MoveNodeService {
                 apiScenarioStepBlobMapper.deleteByExample(stepBlobExample);
                 // 批量删除关联文件
                 String scenarioStepDirPrefix = DefaultRepositoryDir.getApiScenarioStepDir(scenario.getProjectId(), scenario.getId(), StringUtils.EMPTY);
-                apiFileResourceService.deleteByResourceIds(scenarioStepDirPrefix, subIds, scenario.getProjectId(), userId, OperationLogModule.API_SCENARIO_MANAGEMENT_SCENARIO);
+                apiFileResourceService.deleteByResourceIds(scenarioStepDirPrefix, subIds, scenario.getProjectId(), userId, OperationLogModule.API_TEST_SCENARIO_MANAGEMENT_SCENARIO);
             });
 
             // 查询原有的步骤详情
@@ -1073,7 +1073,7 @@ public class ApiScenarioService extends MoveNodeService {
         resourceUpdateRequest.setResourceId(sourceId);
         resourceUpdateRequest.setApiResourceType(ApiResourceType.API_SCENARIO);
         resourceUpdateRequest.setOperator(operator);
-        resourceUpdateRequest.setLogModule(OperationLogModule.API_SCENARIO_MANAGEMENT_SCENARIO);
+        resourceUpdateRequest.setLogModule(OperationLogModule.API_TEST_SCENARIO_MANAGEMENT_SCENARIO);
         resourceUpdateRequest.setFileAssociationSourceType(FileAssociationSourceUtil.SOURCE_TYPE_API_SCENARIO);
         return resourceUpdateRequest;
     }
@@ -1125,7 +1125,7 @@ public class ApiScenarioService extends MoveNodeService {
         //删除文件
         String scenarioDir = DefaultRepositoryDir.getApiScenarioDir(scenario.getProjectId(), scenario.getId());
         try {
-            apiFileResourceService.deleteByResourceId(scenarioDir, scenario.getId(), scenario.getProjectId(), operator, OperationLogModule.API_SCENARIO_MANAGEMENT_SCENARIO);
+            apiFileResourceService.deleteByResourceId(scenarioDir, scenario.getId(), scenario.getProjectId(), operator, OperationLogModule.API_TEST_SCENARIO_MANAGEMENT_SCENARIO);
         } catch (Exception ignore) {
         }
 
@@ -1169,7 +1169,7 @@ public class ApiScenarioService extends MoveNodeService {
 
         //删除文件
         String scenarioDir = DefaultRepositoryDir.getApiScenarioDir(projectId, StringUtils.EMPTY);
-        apiFileResourceService.deleteByResourceIds(scenarioDir, scenarioIdList, projectId, operator, OperationLogModule.API_SCENARIO_MANAGEMENT_SCENARIO);
+        apiFileResourceService.deleteByResourceIds(scenarioDir, scenarioIdList, projectId, operator, OperationLogModule.API_TEST_SCENARIO_MANAGEMENT_SCENARIO);
         //删除定时任务
         scheduleService.deleteByResourceIds(scenarioIdList, ApiScenarioScheduleJob.class.getName());
 

@@ -150,7 +150,7 @@ public class CleanupApiResourceServiceImpl implements CleanupProjectResourceServ
         apiScenarioStepBlobMapper.deleteByExample(blobExample);
 
         String scenarioDirPrefix = DefaultRepositoryDir.getApiScenarioDir(projectId, StringUtils.EMPTY);
-        apiFileResourceService.deleteByResourceIds(scenarioDirPrefix, subList, projectId, operator, OperationLogModule.API_SCENARIO_MANAGEMENT_SCENARIO);
+        apiFileResourceService.deleteByResourceIds(scenarioDirPrefix, subList, projectId, operator, OperationLogModule.API_TEST_SCENARIO_MANAGEMENT_SCENARIO);
 
         //删除csv
         ApiScenarioCsvExample csvExample = new ApiScenarioCsvExample();

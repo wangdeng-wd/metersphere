@@ -190,6 +190,9 @@ public class FileManagementService {
 
     public FileMetadataRepositoryDTO getFileMetadataRepositoryDTO(String fileMetadataId) {
         FileMetadataRepository fileMetadataRepository = fileMetadataRepositoryMapper.selectByPrimaryKey(fileMetadataId);
+        if (fileMetadataRepository == null) {
+            return null;
+        }
         FileMetadataRepositoryDTO metadataRepositoryDTO = new FileMetadataRepositoryDTO();
         BeanUtils.copyBean(metadataRepositoryDTO, fileMetadataRepository);
         return metadataRepositoryDTO;
@@ -197,6 +200,9 @@ public class FileManagementService {
 
     public FileModuleRepositoryDTO getFileModuleRepositoryDTO(String moduleId) {
         FileModuleRepository fileModuleRepository = fileModuleRepositoryMapper.selectByPrimaryKey(moduleId);
+        if (fileModuleRepository == null) {
+            return null;
+        }
         FileModuleRepositoryDTO repositoryDTO = new FileModuleRepositoryDTO();
         BeanUtils.copyBean(repositoryDTO, fileModuleRepository);
         return repositoryDTO;
